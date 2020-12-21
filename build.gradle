@@ -1,0 +1,50 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    api "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
+
+    implementation ("io.grpc:grpc-android:$grpc_version"){
+        exclude group: 'com.google.errorprone', module: 'error_prone_annotations'
+    }
+    implementation ("io.grpc:grpc-okhttp:$grpc_version"){
+        exclude group: 'com.google.errorprone', module: 'error_prone_annotations'
+    }
+    implementation ("io.grpc:grpc-protobuf-lite:$grpc_version"){
+        exclude group: 'com.google.errorprone', module: 'error_prone_annotations'
+    }
+    implementation ("io.grpc:grpc-stub:$grpc_version"){
+        exclude group: 'com.google.errorprone', module: 'error_prone_annotations'
+    }
+
+    implementation 'javax.annotation:javax.annotation-api:1.3'
+}
